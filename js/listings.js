@@ -34,8 +34,24 @@ Nayi line ke liye ek khali line chhodo.`,
    - Image ka naam folder me jo file hai bilkul wahi hona chahiye (capital/small letters matter karte hain).
    - Listing delete karni ho to uska poora { ... }, block delete kar do.
 
-   ABHI KOI LISTING NAHI HAI — upar wala template copy karke neeche [ ] ke andar paste karo.
+   NEECHE SAMPLE LISTINGS HAIN — inhe apni listings se replace / delete kar dena.
    ========================================================== */
 window.LISTINGS = [
+
+  {
+    id: "sample-skyblock-adventure",
+    title: "Sample Modpack: Skyblock Adventure",
+    category: "modpacks",
+    date: "2026-10-11",
+    tags: ["1.20.1", "Forge"],
+    images: [],
+    description: `This is a sample listing. Replace it with your own modpack.
+
+Write a short description here: what the pack adds, how heavy it is, and any setup tips.`,
+    downloads: [{ url: "#" }],
+    owned: false,
+    credit: "Original Creator Name",
+    creditUrl: ""
+  }
 
 ];
