@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ZUHAIB OG</title>
+  <meta name="description" content="Minecraft modpacks, shader packs, mods, models and textures.">
+  <meta name="theme-color" content="#0a0804">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23e0a53a'/%3E%3Cpath d='M32 12 50 22v20L32 52 14 42V22z' fill='%23140d03' opacity='.85'/%3E%3Cpath d='M14 22 32 32 50 22M32 32v20' stroke='%23e0a53a' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- settings + theme are read before the page is painted, so there is no colour flash -->
+  <script src="js/config.js"></script>
+  <script>
+    (function () {
+      var themes = ["gold", "silver", "ember", "emerald", "ender", "nether"];
+      var fromUrl = new URLSearchParams(location.search).get("theme");   // index.html?theme=silver  (preview only)
+      var t = String(fromUrl || (window.SITE_CONFIG && window.SITE_CONFIG.theme) || "gold").toLowerCase();
+      if (themes.indexOf(t) === -1) t = "gold";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- background: light, drifting pixels, grain -->
+  <div class="bg" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <span class="sheen"></span>
+    <canvas id="fx"></canvas>
+  </div>
+
+  <!-- TOP BAR: Socials (top-left) | brand | search | sound -->
+  <div class="nav-shell">
+    <header class="nav glass">
+      <div class="nav-left">
+        <button class="nav-btn" id="socialsBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="socialsMenu">
+          <span class="slot" data-icon="share"></span>
+          <span class="lbl">Socials</span>
+        </button>
+        <a class="brand" id="brand" href="#/" aria-label="Home">
+          <span class="brand-mark" id="brandMark"></span>
+          <span class="brand-name" id="brandName"></span>
+        </a>
+      </div>
+
+      <label class="search" id="searchBox">
+        <span class="slot" data-icon="search"></span>
+        <input id="search" type="search" placeholder="Search mods, shaders, packs…" autocomplete="off" spellcheck="false" aria-label="Search listings">
+        <button class="search-clear" id="searchClear" type="button" aria-label="Clear search" data-sfx="click" hidden>
+          <span class="slot" data-icon="close"></span>
+        </button>
+        <kbd id="searchKbd">/</kbd>
+      </label>
+
+      <div class="nav-right">
+        <button class="nav-btn icon-only" id="soundBtn" type="button" data-sfx="none" aria-pressed="true" aria-label="Sound effects on">
+          <span class="slot" id="soundIcon"></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu glass" id="socialsMenu" role="menu" aria-hidden="true"></div>
+  </div>
+
+  <!-- PAGE CONTENT (filled by js/app.js) -->
+  <main id="app" tabindex="-1"></main>
+
+  <!-- FOOTER: socials + contact -->
+  <footer class="footer-wrap">
+    <div class="footer glass">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <strong id="footName"></strong>
+          <p>Community downloads for Minecraft players.</p>
+        </div>
+        <div class="footer-socials" id="footSocials"></div>
+      </div>
+      <div class="footer-note">
+        <span id="footContact"></span>
+        <span id="footCopy"></span>
+      </div>
+    </div>
+  </footer>
+
+  <noscript><p style="padding:24px;text-align:center">Please turn on JavaScript to use this website.</p></noscript>
+
+  <script src="js/listings.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
