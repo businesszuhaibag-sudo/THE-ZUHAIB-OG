@@ -20,8 +20,9 @@
      description: `Yahan chhota sa description likho.
 
 Nayi line ke liye ek khali line chhodo.`,
-     downloads: [                             // sirf 1 link: tumhara ads link (jo aage Drive pe jata hai)
-       { url: "https://..." }
+     downloads: [                             // jitne chaaho download buttons
+       { label: "Download (Mediafire)", url: "https://..." },
+       { label: "Download (Mega)",      url: "https://..." }
      ],
      owned: false,                            // true = ye cheez TUMNE banayi hai ("Made by me" badge dikhega)
      credit: "Original Creator Name",         // asli owner ka naam (owned: true ho to chhod sakte ho: "")
@@ -48,7 +49,10 @@ window.LISTINGS = [
     description: `This is a sample listing. Replace it with your own modpack.
 
 Write a short description here: what the pack adds, how heavy it is, and any setup tips.`,
-    downloads: [{ url: "#" }],
+    downloads: [
+      { label: "Download (Mediafire)", url: "#" },
+      { label: "Download (Mega)", url: "#" }
+    ],
     owned: false,
     credit: "Original Creator Name",
     creditUrl: ""
