@@ -494,16 +494,18 @@
     // downloads
     const dl = h("div", { class: "dl-row" });
     if (l.downloads.length) {
-      l.downloads.forEach(function (d, i) {
-        const placeholder = d.url === "#";
-        const a = h("a", {
-          class: "btn" + (i === 0 ? " btn-primary" : ""),
-          href: d.url, "data-sfx": "download",
-          target: placeholder ? null : "_blank", rel: placeholder ? null : "noopener noreferrer"
-        }, icon("download", 20), d.label || "Download");
-        if (placeholder) a.addEventListener("click", function (e) { e.preventDefault(); });
-        dl.append(a);
-      });
+      // one button per listing: it goes to the owner's ad link, which leads to the Google Drive file
+      const d = l.downloads[0];
+      const placeholder = d.url === "#";
+      const a = h("a", {
+        class: "btn btn-primary dl-main",
+        href: d.url, "data-sfx": "download",
+        target: placeholder ? null : "_blank", rel: placeholder ? null : "noopener noreferrer"
+      }, icon("download", 20), h("span", { class: "dl-text" },
+        h("b", null, CFG.downloadLabel || "Download from Google Drive"),
+        h("small", null, CFG.downloadHint || "1 min ads link: ads open first, then you get the Drive link")));
+      if (placeholder) a.addEventListener("click", function (e) { e.preventDefault(); });
+      dl.append(a);
     } else {
       dl.append(h("span", { class: "btn is-soon", "aria-disabled": "true" }, icon("download", 20), "Download link coming soon"));
     }

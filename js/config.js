@@ -35,6 +35,10 @@ window.SITE_CONFIG = {
     { name: "Telegram", icon: "telegram", url: "https://t.me/ZUHAIB_AG_ASSETS", handle: "@ZUHAIB_AG_ASSETS" }
   ],
 
+  /* ---- Download button text (har listing me ek hi button dikhta hai) ---- */
+  downloadLabel: "Download from Google Drive",
+  downloadHint: "1 min ads link: ads open first, then you get the Drive link",
+
   /* ---- Listings per page (page system) ---- */
   perPage: 9,
 

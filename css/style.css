@@ -380,6 +380,10 @@ main { flex: 1; width: min(var(--wrap), calc(100% - 28px)); margin: 0 auto; padd
 .btn-primary { background: var(--metal); color: var(--accent-ink); border-color: transparent; box-shadow: 0 12px 32px rgba(var(--accent-rgb), .3), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 0 rgba(0,0,0,.12); }
 .btn-primary:hover { background: var(--metal); filter: brightness(1.08); box-shadow: 0 16px 42px rgba(var(--accent-rgb), .45), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.12); }
 .btn.is-soon { opacity: .6; pointer-events: none; }
+.dl-main { padding: 10px 26px; text-align: left; }
+.dl-text { display: flex; flex-direction: column; line-height: 1.25; }
+.dl-text b { font-weight: 750; font-size: 16px; }
+.dl-text small { font-weight: 600; font-size: 12.5px; opacity: .78; }
 .btn-ghost { background: rgba(255,255,255,.06); }
 
 /* ---------- listing page ---------- */
