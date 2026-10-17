@@ -18,7 +18,7 @@ window.SITE_CONFIG = {
      "ender"   = violet + diamond cyan
      "nether"  = crimson / rose
      Test karne ke liye address me ye likho:  index.html?theme=silver              */
-  theme: "gold",
+  theme: "silver",
   logo: "",                                    // optional: "images/logo.png" (square image). Khali chhodo to naam ka pehla letter dikhega.
 
   /* ---- Contact (disclaimer + footer me dikhta hai) ---- */
