@@ -35,8 +35,29 @@ Nayi line ke liye ek khali line chhodo.`,
    - Image ka naam folder me jo file hai bilkul wahi hona chahiye (capital/small letters matter karte hain).
    - Listing delete karni ho to uska poora { ... }, block delete kar do.
 
-   ABHI KOI LISTING NAHI HAI — upar wala template copy karke neeche [ ] ke andar paste karo.
+   Nayi listing upar wala template copy karke neeche [ ] ke andar sabse upar paste karo.
    ========================================================== */
 window.LISTINGS = [
+
+  {
+    id: "complete-bbs-modpack",
+    title: "Complete BBS Modpack For Minecraft",
+    category: "mods",
+    date: "2026-10-17",
+    tags: ["1.20.1", "Fabric"],
+    images: ["images/complete-bbs-modpack-1.jpg"],
+    description: `A complete modpack for Minecraft 1.20.1 on Fabric. It has everything from FPS-boosting mods to quality-enhancing mods, together with the new BBS mod, for a smooth experience with mods chosen for the best compatibility.
+
+You can build easily with it, and it also includes a few extra mods that will come in handy for your videos.
+
+I put this modpack together myself. The mods inside belong to their respective creators.`,
+    size: "91 MB",
+    downloads: [
+      { url: "https://linkpays.in/8dvf" }
+    ],
+    owned: false,
+    credit: "Modpack compiled by Zuhaib. All included mods belong to their respective creators.",
+    creditUrl: ""
+  }
 
 ];
