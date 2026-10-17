@@ -422,7 +422,9 @@
           ? h("button", { class: "btn", type: "button", onclick: function () { searchInput.value = ""; clearBtn.hidden = true; location.hash = "#/"; } }, "Show everything")
           : null));
     } else {
-      refs.results.append(h("div", { class: "grid" }, slice.map(card)), pager(state.page, pages));
+      refs.results.append(h("div", { class: "grid" }, slice.map(card)));
+      const pg = pager(state.page, pages);
+      if (pg) refs.results.append(pg);
     }
 
     if (animate) {
