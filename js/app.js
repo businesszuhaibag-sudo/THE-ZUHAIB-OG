@@ -55,7 +55,8 @@
     box:      '<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5"/><path d="M12 12v9"/>',
     user:     '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>',
     link:     '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-    find:     '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8.5 11h5"/>'
+    find:     '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M8.5 11h5"/>',
+    pin:      '<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'
   };
 
   function icon(name, size) {
@@ -74,7 +75,7 @@
      SOUND EFFECTS  (click / listing / download)
      --------------------------------------------------------- */
   const Sfx = (function () {
-    const cfg = Object.assign({ enabled: true, volume: 0.55, click: "", listing: "", download: "" }, CFG.sounds || {});
+    const cfg = Object.assign({ enabled: true, volume: 0.55, click: "", listing: "", download: "", about: "" }, CFG.sounds || {});
     let ctx = null, master = null, muted = false;
     try { muted = localStorage.getItem("mh-sfx-muted") === "1"; } catch (e) {}
 
@@ -121,6 +122,14 @@
       listing: function () {
         tone({ f: 280, to: 640, type: "sine", dur: 0.17, vol: 0.2 });
         tone({ f: 640, to: 960, type: "triangle", dur: 0.14, vol: 0.09, delay: 0.05 });
+      },
+      // about card: soft rising sweep + sparkling four-note run (clearly different from the others)
+      about: function () {
+        tone({ f: 200, to: 900, type: "sine", dur: 0.34, vol: 0.09 });
+        [880, 1109, 1319, 1760].forEach(function (f, i) {
+          tone({ f: f, type: "triangle", dur: 0.26, vol: 0.12, delay: 0.1 + i * 0.075 });
+        });
+        tone({ f: 2349, type: "sine", dur: 0.5, vol: 0.06, delay: 0.42 });
       },
       // download: low thump + bright three-note chime
       download: function () {
@@ -194,6 +203,7 @@
       images: images,
       description: String(l.description || ""),
       downloads: (Array.isArray(l.downloads) ? l.downloads : []).filter(function (d) { return d && d.url; }),
+      size: String(l.size || "").trim(),
       owned: !!l.owned,
       credit: String(l.credit || ""),
       creditUrl: String(l.creditUrl || ""),
@@ -506,6 +516,7 @@
         h("small", null, CFG.downloadHint || "1 min ads link: ads open first, then you get the Drive link")));
       if (placeholder) a.addEventListener("click", function (e) { e.preventDefault(); });
       dl.append(a);
+      if (l.size) dl.append(h("span", { class: "file-size", title: "File size" }, icon("box", 18), h("span", null, h("small", null, "File size"), h("b", null, l.size))));
     } else {
       dl.append(h("span", { class: "btn is-soon", "aria-disabled": "true" }, icon("download", 20), "Download link coming soon"));
     }
@@ -602,6 +613,112 @@
   });
   $("#footContact").append("Copyright or credit concern? ", mailLink("Copyright / credit concern"));
   $("#footCopy").textContent = "© " + new Date().getFullYear() + " " + siteName;
+
+  /* ---------------------------------------------------------
+     ABOUT card (the info button next to Socials)
+     --------------------------------------------------------- */
+  const aboutBtn = $("#aboutBtn");
+  const AB = CFG.about || null;
+  let aboutLayer = null, aboutFocus = null;
+
+  // words (and **highlighted** words) that pop in one after another
+  function popWords(text, ctr) {
+    const out = [];
+    let on = false;
+    String(text).split(/\s+/).filter(Boolean).forEach(function (tok) {
+      let hl = on, closes = false;
+      if (tok.indexOf("**") === 0) { on = true; hl = true; tok = tok.slice(2); }
+      const i = tok.indexOf("**");
+      if (on && i !== -1) { closes = true; tok = tok.slice(0, i) + tok.slice(i + 2); }
+      out.push(h("span", { class: "w" + (hl ? " hl" : ""), style: { "--d": Math.round(ctr.t) + "ms" } }, tok), " ");
+      ctr.t += ctr.step;
+      if (closes) on = false;
+    });
+    return out;
+  }
+
+  function buildAbout() {
+    const ctr = { t: 360, step: 22 };
+
+    const nameEls = [];
+    Array.from(AB.name || siteName).forEach(function (ch) {
+      if (ch === " ") { nameEls.push(" "); return; }
+      nameEls.push(h("span", { class: "w l", style: { "--d": Math.round(ctr.t) + "ms" } }, ch));
+      ctr.t += 45;
+    });
+    ctr.t += 80;
+
+    const meta = h("div", { class: "about-meta" });
+    if (AB.location) {
+      meta.append(h("span", { class: "w about-chip", style: { "--d": Math.round(ctr.t) + "ms" } }, icon("pin", 17), AB.location));
+      ctr.t += 90;
+    }
+    if (CFG.contactEmail) {
+      meta.append(h("a", { class: "w about-chip", href: "mailto:" + CFG.contactEmail, style: { "--d": Math.round(ctr.t) + "ms" } }, icon("mail", 17), CFG.contactEmail));
+      ctr.t += 140;
+    }
+
+    const story = h("ol", { class: "about-story" });
+    (AB.story || []).forEach(function (item) {
+      story.append(h("li", { style: { "--d": Math.round(ctr.t) + "ms" } },
+        h("span", { class: "dot", "aria-hidden": "true" }),
+        h("div", { class: "story-body" },
+          h("b", { class: "story-label" }, popWords(item.label || "", ctr)),
+          h("p", null, popWords(item.text || "", ctr)))));
+      ctr.t += 140;
+    });
+
+    const close = h("button", { class: "about-close", type: "button", "aria-label": "Close", onclick: closeAbout }, icon("close", 18));
+    const card = h("div", { class: "about-card" },
+      close,
+      h("div", { class: "about-head" },
+        h("div", { class: "about-avatar", "aria-hidden": "true" }, (AB.name || siteName).charAt(0).toUpperCase()),
+        h("div", null,
+          h("h2", { id: "aboutName", class: "about-name" }, nameEls),
+          AB.aka ? h("p", { class: "about-aka" }, AB.aka) : null)),
+      meta, story);
+
+    return h("div", { class: "about-layer", role: "dialog", "aria-modal": "true", "aria-labelledby": "aboutName" },
+      h("div", { class: "about-backdrop", onclick: closeAbout }), card);
+  }
+
+  function openAbout() {
+    if (!AB || aboutLayer) return;
+    aboutFocus = document.activeElement;
+    closeMenu();
+    aboutLayer = buildAbout();
+    document.body.append(aboutLayer);
+    document.body.style.overflow = "hidden";
+    aboutBtn.setAttribute("aria-expanded", "true");
+    aboutLayer.querySelector(".about-close").focus({ preventScroll: true });
+  }
+  function closeAbout() {
+    if (!aboutLayer) return;
+    const layer = aboutLayer;
+    aboutLayer = null;
+    layer.classList.add("closing");
+    document.body.style.overflow = "";
+    aboutBtn.setAttribute("aria-expanded", "false");
+    setTimeout(function () { layer.remove(); }, 260);
+    if (aboutFocus && aboutFocus.focus) aboutFocus.focus({ preventScroll: true });
+  }
+  if (!AB) aboutBtn.hidden = true;
+  else {
+    const lbl = aboutBtn.querySelector(".lbl");
+    if (lbl && AB.buttonLabel) lbl.textContent = AB.buttonLabel;
+  }
+  aboutBtn.addEventListener("click", function () { aboutLayer ? closeAbout() : openAbout(); });
+  document.addEventListener("keydown", function (e) {
+    if (!aboutLayer) return;
+    if (e.key === "Escape") { closeAbout(); return; }
+    if (e.key === "Tab") {                      // keep keyboard focus inside the card
+      const f = aboutLayer.querySelectorAll("button, a[href]");
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
 
   // sound toggle
   const soundBtn = $("#soundBtn");

@@ -8,7 +8,7 @@ window.SITE_CONFIG = {
   siteName: "ZUHAIB OG",                      // navbar + footer me dikhega
   heroTitle: "ZUHAIB OG's Files",              // bada (foil) heading
   heroLine: "Download Everything in One Place",  // uske neeche wali line (khali "" chhodo to nahi dikhegi)
-  heroSubtitle: "Modpacks, shader packs, mods, models and textures. Pick one, open it, download it.",
+  heroSubtitle: "Visual enhancements, mods and BBS assets. Pick one, open it, download it.",
 
   /* ---- THEME (background + colours) ----
      "gold"    = black + royal gold
@@ -39,6 +39,29 @@ window.SITE_CONFIG = {
   downloadLabel: "Download from Google Drive",
   downloadHint: "1 min ads link: ads open first, then you get the Drive link",
 
+  /* ---- ABOUT card (top-left "About" button) ----
+     Text me **double star** ke andar likho to wo highlight hoga.
+     Poora About button hatana ho to  about: null  likh do.
+     Email upar wale contactEmail se aata hai.                                 */
+  about: {
+    buttonLabel: "About",
+    name: "ZUHAIB ULLA",
+    aka: "aka Zuhaib AG / OG",
+    location: "Gubbi, Karnataka, India",
+    story: [
+      { label: "January 2025",
+        text: "Started his YouTube journey by making MCPE shorts." },
+      { label: "Learning BBS",
+        text: "Discovered the BBS mod and taught himself animation on a very low-end PC. Everything he figured out on his own, he recorded as a tutorial so others could learn it too." },
+      { label: "100K subscribers",
+        text: "With everyone's support, the channel grew to 100K subscribers. It missed the Play Button, though, and for a YouTuber that milestone means everything. Hurt by it, he sold the channel. That channel now runs under the name **Chad AG**." },
+      { label: "Starting over",
+        text: "He didn't stop there. He worked hard again, for himself and for his viewers, and reached 100K subscribers a second time." },
+      { label: "Now",
+        text: "Back with long videos, teaching the BBS mod through tutorials again so everyone can grow together." }
+    ]
+  },
+
   /* ---- Listings per page (page system) ---- */
   perPage: 9,
 
@@ -46,17 +69,15 @@ window.SITE_CONFIG = {
      id: listings.js me "category" me yehi likhna hai
      hue: card ke placeholder ka rang (0-360)                                  */
   categories: [
-    { id: "modpacks", label: "Modpacks",     hue: 265 },
-    { id: "shaders",  label: "Shader packs", hue: 195 },
-    { id: "mods",     label: "Mods",         hue: 145 },
-    { id: "models",   label: "Models",       hue: 330 },
-    { id: "textures", label: "Textures",     hue: 35  }
+    { id: "visuals", label: "Visual Enhancements", hue: 195 },
+    { id: "mods",    label: "Mods",                hue: 145 },
+    { id: "assets",  label: "BBS ASSETS",          hue: 330 }
   ],
 
   /* ---- Default disclaimer (HAR listing ke andar apne aap dikhega) ---- */
   disclaimerTitle: "Disclaimer",
   disclaimer:
-    "I don't own most of the mods, shader packs, resource packs, models and modpacks listed on this website. " +
+    "I don't own most of the mods, shader packs, visual enhancements, resource packs, models and other assets listed on this website. " +
     "I only provide them for the community. Some of the content here is my own work, and every listing gives credit to its respected owner. " +
     "If you are an owner and have a copyright concern, please contact me and I will sort it out.",
 
@@ -66,12 +87,14 @@ window.SITE_CONFIG = {
      jaise  click: "sounds/click.mp3"
        click    = normal buttons / chips / pages
        listing  = kisi listing (card) pe click
-       download = download buttons                                              */
+       download = download buttons
+       about    = About button                                              */
   sounds: {
     enabled: true,
     volume: 0.55,
     click: "",
     listing: "",
-    download: ""
+    download: "",
+    about: ""
   }
 };

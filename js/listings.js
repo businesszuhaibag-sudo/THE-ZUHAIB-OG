@@ -1,5 +1,5 @@
 /* ==========================================================
-   LISTINGS  —  saari modpacks / shaders / mods / models / textures yahan hain
+   LISTINGS  —  saari visuals / mods / assets yahan hain
    ==========================================================
 
    NAYI LISTING ADD KARNE KA TAREEKA
@@ -10,7 +10,7 @@
    {
      id: "my-new-pack",                       // unique naam: chhote letters, bina space ke (- use karo)
      title: "My New Pack",                    // listing ka naam
-     category: "modpacks",                    // modpacks | shaders | mods | models | textures
+     category: "mods",                        // visuals | mods | assets
      date: "2026-10-12",                      // YYYY-MM-DD (naya date = upar dikhega)
      tags: ["1.20.1", "Forge"],               // chote labels (version, loader, etc.)
      images: [                                // pehli image = showcase image. Zyada images = gallery
@@ -20,6 +20,7 @@
      description: `Yahan chhota sa description likho.
 
 Nayi line ke liye ek khali line chhodo.`,
+     size: "250 MB",                          // file ka size (KB / MB / GB), download button ke bagal me dikhega. Nahi pata to ""
      downloads: [                             // sirf 1 link: tumhara ads link (jo aage Drive pe jata hai)
        { url: "https://..." }
      ],

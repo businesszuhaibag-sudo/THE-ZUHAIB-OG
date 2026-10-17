@@ -67,6 +67,12 @@ theme: "gold",
 
 ---
 
+## 2c. About (info) card badalna
+
+Top-left ke **About** button wala card `js/config.js` ke `about: { ... }` se aata hai: naam, location, aur `story` (har step ka `label` aur `text`). Kisi shabd ko highlight karna ho to `**double star**` ke andar likho. Poora button hatana ho to `about: null` likh do. Email `contactEmail` se aata hai.
+
+---
+
 ## 3. Website apne PC pe dekhna
 
 `index.html` pe **double-click** karo. Browser me khul jayegi. Har change ke baad file save karke browser me **F5** dabao.
@@ -85,7 +91,7 @@ theme: "gold",
 {
   id: "my-new-pack",                // unique, chhote letters, bina space (- use karo)
   title: "My New Pack",
-  category: "modpacks",             // modpacks | shaders | mods | models | textures
+  category: "mods",                 // visuals | mods | assets
   date: "2026-10-12",               // YYYY-MM-DD
   tags: ["1.20.1", "Forge"],        // chote labels
   images: [
@@ -208,7 +214,7 @@ Jo khali `""` chhodoge, uske liye default sound chalega. Sounds ko **chhota (1 s
 |---|---|
 | Listings dikh hi nahi rahi, ya "Listings could not be loaded" aaya | `listings.js` me comma, quote ya bracket missing hai. VS Code me wahi line red dikhegi. Har `}` ke baad `,` check karo |
 | Nayi listing nahi dikh rahi | `id` kisi aur listing jaisa to nahi? Block `window.LISTINGS = [` ke andar hi hai? |
-| Category ka filter kaam nahi kar raha | `category` me exactly `modpacks`, `shaders`, `mods`, `models`, `textures` me se ek likho |
+| Category ka filter kaam nahi kar raha | `category` me exactly `visuals`, `mods`, `assets` me se ek likho |
 | Image nahi dikh rahi | Naam / extension (.jpg vs .jpeg) folder wale se match karo, aur image `images/` me hai ya nahi |
 | Publish ke baad purana version dikh raha | Browser me **Ctrl + F5** (hard refresh) |
 | Sound nahi aa raha | Speaker icon mute to nahi? Browser pehle click ke baad hi sound allow karta hai |
